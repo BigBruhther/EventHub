@@ -18,6 +18,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 
@@ -30,6 +32,7 @@ import java.awt.event.ActionEvent;
  */
 public class LoginWindow extends JFrame 
 {
+
 
 	private JTextField txtUsername;			// Text field to input username
 	private JPasswordField txtPassword;		// Password field to input password
@@ -67,12 +70,6 @@ public class LoginWindow extends JFrame
         });
 		// ===================================================================
 		
-		
-		JPanel pnlSubmitPanel = new JPanel();
-		pnlSubmitPanel.setBorder(new BevelBorder(BevelBorder.RAISED, SystemColor.inactiveCaptionBorder, null, null, null));
-		pnlSubmitPanel.setBackground(SystemColor.control);
-		pnlSubmitPanel.setBounds(10, 453, 766, 50);
-		getContentPane().add(pnlSubmitPanel);
 		
 		JPanel pnlTextPanel = new JPanel();
 		pnlTextPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, null, null, null));
@@ -117,6 +114,8 @@ public class LoginWindow extends JFrame
 		passShown.setBounds(passHidden.getBounds());
 		
 		JButton btnHidePass = new JButton("");
+		btnHidePass.setFocusable(false);
+		btnHidePass.setToolTipText("Hide/unhide password");
 		btnHidePass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFieldType();
@@ -126,6 +125,45 @@ public class LoginWindow extends JFrame
 		btnHidePass.setBounds(330, 24, 21, 21);
 		// ADD EYEBALL IMAGE HERE
 		pnlPassword.add(btnHidePass);
+		
+		
+		JPanel pnlSubmitPanel = new JPanel();
+		pnlSubmitPanel.setBorder(new BevelBorder(BevelBorder.RAISED, SystemColor.inactiveCaptionBorder, null, null, null));
+		pnlSubmitPanel.setBackground(SystemColor.control);
+		pnlSubmitPanel.setBounds(10, 453, 766, 50);
+		getContentPane().add(pnlSubmitPanel);
+		pnlSubmitPanel.setLayout(null);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		LoginWindow thisWindow = this;		// Creates a pointer for this login window to be used in the following ActionListener
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				thisWindow.dispatchEvent(new WindowEvent(thisWindow, WindowEvent.WINDOW_CLOSING));	// Closes the login window
+			}
+		});
+		btnCancel.setFocusable(false);
+		btnCancel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 15));
+		btnCancel.setBounds(513, 10, 103, 30);
+		pnlSubmitPanel.add(btnCancel);
+		
+		JButton btnSubmit = new JButton("SUBMIT");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * Implement this.
+				 * Should have:
+				 * 		x Password checking (should reject the submission if some requirements are not met)
+				 * 		x Submit email and password to be checked.
+				 * 			o If valid, exit login window and continue to the next page
+				 * 			o Else, state that the email/password is invalid and let the user retry
+				 */
+			}
+		});
+		btnSubmit.setFocusable(false);
+		btnSubmit.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 15));
+		btnSubmit.setBounds(626, 10, 103, 30);
+		pnlSubmitPanel.add(btnSubmit);
+		
 		
 		
 		
