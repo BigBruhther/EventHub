@@ -1,2 +1,2 @@
 # ConcertDB
-Concert database for COSC3318
+Concert database for COSC3318.
