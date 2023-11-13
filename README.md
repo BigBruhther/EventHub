@@ -35,16 +35,16 @@ ensure a seamless concert experience.
 
 ## How It Works:
 
-1. **Concert Creation:**
+1. Concert Creation:
     - Venue owners create new concerts, adding details about the event, venue, artists, seats, and prices.
 
-2. **Account Creation (Customers):**
+2. Account Creation (Customers):
     - Customers create accounts to streamline the ticket purchasing process.
 
-3. **Ticket Purchase:**
+3. Ticket Purchase:
     - Customers browse available concerts and purchase tickets for their desired event.
 
-4. **Ticket Storage:**
+4. Ticket Storage:
     - Purchased tickets are added to the customer's account for easy access and management.
 
 We aim to provide a user-friendly platform for both concert hosts and customers, 
