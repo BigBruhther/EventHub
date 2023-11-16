@@ -56,7 +56,7 @@ public class LoginWindow extends JFrame
 		this.setResizable(false);
 		this.setTitle("Log in");
 		//this.setIconImage(new ImageIcon("ENTER IMAGE FILE NAME HERE").getImage());
-		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
