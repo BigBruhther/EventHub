@@ -1,36 +1,33 @@
 package com.app.concert.graphics;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.BevelBorder;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.Icon;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+
+import com.app.concert.user.Account;
+import com.app.concert.user.Password;
 
 
 /**
  * An object representing a login window to collect a user's
  * login data
  * 
- * @author  Logan Alpha
- * @version 11.7.2023
+ * @author  Logan Alpha (ADD YOUR NAME HERE IF YOU WORK ON THIS)
+ * @version 11.8.2023
  */
-public class LoginWindow extends JFrame 
+public class LoginWindow extends BaseWindow 
 {
 
 
@@ -39,7 +36,6 @@ public class LoginWindow extends JFrame
 	
 	private boolean isHidden;		// Keeps track of whether or not the password is hidden
 	
-	private boolean isInstantiated;
 	private JTextField txtEmail;
 	private JPasswordField passHidden;
 	private JTextField passShown;
@@ -52,39 +48,33 @@ public class LoginWindow extends JFrame
 		System.out.println("Creating login window...");
 		
 		// Code relating to the window itself ================================
-		this.setSize(800,550);
+		this.setSize(950,610);
 		this.setResizable(false);
 		this.setTitle("Log in");
 		//this.setIconImage(new ImageIcon("ENTER IMAGE FILE NAME HERE").getImage());
-		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
 		
-		// Creates a WindowListener to make isInstantiated false
-		// when exiting the login window
-		this.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
-            	isInstantiated = false;
-            	System.out.println("Exiting login window...");
-            }
-        });
-		// ===================================================================
+		
 		
 		
 		JPanel pnlTextPanel = new JPanel();
 		pnlTextPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, null, null, null));
-		pnlTextPanel.setBackground(new Color(192, 192, 192));
-		pnlTextPanel.setBounds(73, 58, 640, 338);
+		pnlTextPanel.setBackground(new Color(92, 64, 51));
+		pnlTextPanel.setBounds(201, 37, 533, 466);
 		getContentPane().add(pnlTextPanel);
 		pnlTextPanel.setLayout(null);
 		
 		JPanel pnlEmail = new JPanel();
-		pnlEmail.setBounds(37, 66, 565, 70);
+		pnlEmail.setBackground(new Color(92, 64, 51));
+		pnlEmail.setBounds(56, 273, 420, 70);
 		pnlTextPanel.add(pnlEmail);
 		pnlEmail.setLayout(null);
 		
 		JLabel lblEmail = new JLabel("Email: ");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEmail.setForeground(new Color(255, 222, 89));
+		lblEmail.setFont(new Font("Constantia", Font.PLAIN, 20));
 		lblEmail.setBounds(38, 22, 104, 25);
 		pnlEmail.add(lblEmail);
 		
@@ -94,17 +84,24 @@ public class LoginWindow extends JFrame
 		txtEmail.setColumns(20);
 		
 		pnlPassword = new JPanel();
-		pnlPassword.setBounds(37, 202, 565, 70);
+		pnlPassword.setBackground(new Color(92, 64, 51));
+		pnlPassword.setBounds(56, 341, 420, 70);
 		pnlTextPanel.add(pnlPassword);
 		pnlPassword.setLayout(null);
 		
 		JLabel lblPassword = new JLabel("Password: ");
-		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblPassword.setForeground(new Color(255, 222, 89));
+		lblPassword.setFont(new Font("Constantia", Font.PLAIN, 20));
 		lblPassword.setBounds(38, 22, 104, 25);
 		pnlPassword.add(lblPassword);
 		
 		// Creates the hidden version of the password's text field and adds it to the panel
 		passHidden = new JPasswordField();
+		passHidden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clack");
+			}
+		});
 		passHidden.setBounds(152, 23, 166, 23);
 		pnlPassword.add(passHidden);
 		isHidden = true;
@@ -126,12 +123,67 @@ public class LoginWindow extends JFrame
 		// ADD EYEBALL IMAGE HERE
 		pnlPassword.add(btnHidePass);
 		
+		JPanel pnlParagraph = new JPanel();
+		pnlParagraph.setBackground(new Color(92, 64, 51));
+		pnlParagraph.setBounds(56, 54, 420, 223);
+		pnlTextPanel.add(pnlParagraph);
+		pnlParagraph.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Welcome!");
+		lblNewLabel.setForeground(new Color(255, 222, 89));
+		lblNewLabel.setBounds(20, 0, 133, 41);
+		lblNewLabel.setFont(new Font("Ink Free", Font.ITALIC, 33));
+		pnlParagraph.add(lblNewLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(new Color(255, 222, 89));
+		separator.setForeground(new Color(255, 222, 89));
+		separator.setBounds(20, 61, 123, 2);
+		pnlParagraph.add(separator);
+		
+		JLabel lblNewLabel_1 = new JLabel("Discover your favorite artists and find local events near you!");
+		lblNewLabel_1.setForeground(new Color(255, 222, 89));
+		lblNewLabel_1.setFont(new Font("Constantia", Font.PLAIN, 12));
+		lblNewLabel_1.setBounds(20, 73, 380, 26);
+		pnlParagraph.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New to EventHub? ");
+		lblNewLabel_2.setForeground(new Color(255, 222, 89));
+		lblNewLabel_2.setFont(new Font("Constantia", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(20, 109, 133, 26);
+		pnlParagraph.add(lblNewLabel_2);
+		
+		JButton btnNewButton = new JButton("Sign Up");
+		AccountCreationWindow ac = new AccountCreationWindow();
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!ac.getCurrentUse()) {
+					ac.invertUse();
+					ac.setVisible(true);
+				}
+				
+			}
+		});
+		btnNewButton.setFocusable(false);
+		btnNewButton.setFont(new Font("Constantia", Font.BOLD, 14));
+		btnNewButton.setForeground(new Color(255, 222, 89));
+		btnNewButton.setBackground(new Color(92, 64, 51));
+		btnNewButton.setBounds(163, 109, 96, 26);
+		pnlParagraph.add(btnNewButton);
+		
+		JLabel lblNewLabel_3 = new JLabel("*By using EventHub you agree to our term of service.");
+		lblNewLabel_3.setForeground(new Color(255, 222, 89));
+		lblNewLabel_3.setFont(new Font("Constantia", Font.ITALIC, 9));
+		lblNewLabel_3.setBounds(20, 171, 380, 42);
+		pnlParagraph.add(lblNewLabel_3);
+		
 		
 		JPanel pnlSubmitPanel = new JPanel();
-		pnlSubmitPanel.setBorder(new BevelBorder(BevelBorder.RAISED, SystemColor.inactiveCaptionBorder, null, null, null));
-		pnlSubmitPanel.setBackground(SystemColor.control);
-		pnlSubmitPanel.setBounds(10, 453, 766, 50);
-		getContentPane().add(pnlSubmitPanel);
+		pnlSubmitPanel.setBounds(0, 406, 533, 50);
+		pnlTextPanel.add(pnlSubmitPanel);
+		pnlSubmitPanel.setBorder(null);
+		pnlSubmitPanel.setBackground(new Color(92, 64, 51));
 		pnlSubmitPanel.setLayout(null);
 		
 		JButton btnCancel = new JButton("CANCEL");
@@ -143,31 +195,40 @@ public class LoginWindow extends JFrame
 		});
 		btnCancel.setFocusable(false);
 		btnCancel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 15));
-		btnCancel.setBounds(513, 10, 103, 30);
+		btnCancel.setBounds(109, 10, 103, 30);
 		pnlSubmitPanel.add(btnCancel);
 		
 		JButton btnSubmit = new JButton("SUBMIT");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * Implement this.
-				 * Should have:
-				 * 		x Password checking (should reject the submission if some requirements are not met)
-				 * 		x Submit email and password to be checked.
-				 * 			o If valid, exit login window and continue to the next page
-				 * 			o Else, state that the email/password is invalid and let the user retry
-				 */
+				
+				String password;
+				if (isHidden) 
+					password = String.valueOf(passHidden.getPassword());
+				else
+					password = passShown.getText();
+				
+				if (Password.isValid(password)) {
+					Account a = new Account(txtEmail.getText(), password);;
+					new MainWindow(a);
+				}
 			}
 		});
 		btnSubmit.setFocusable(false);
 		btnSubmit.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 15));
-		btnSubmit.setBounds(626, 10, 103, 30);
+		btnSubmit.setBounds(321, 10, 103, 30);
 		pnlSubmitPanel.add(btnSubmit);
 		
 		
+		JLabel lblImage = new JLabel();
+		Image image = new ImageIcon(this.getClass().getResource("/com/app/concert/graphics/login_image.png")).getImage();
+		lblImage.setIcon(new ImageIcon(image));
+		lblImage.setForeground(new Color(0, 0, 0));
+		lblImage.setBounds(-885, -187, 1836, 776);
+		getContentPane().add(lblImage);
 		
 		
-		isInstantiated = true;
+		setNext(new BaseWindow());	// Change this later
 		
 		this.setVisible(true);
 		
@@ -201,6 +262,14 @@ public class LoginWindow extends JFrame
 	}
 
 	
-	public boolean getCurrentUse() {return isInstantiated;}
+	
 
+	private String[] submit(String email, String password) {
+		
+		
+		String[] accInfo = new String[2];
+		accInfo[0] = email;
+		accInfo[1] = password;
+		return accInfo;
+	}
 }
