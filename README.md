@@ -49,6 +49,5 @@ ensure a seamless concert experience.
 
 We aim to provide a user-friendly platform for both concert hosts and customers, 
 ensuring an enjoyable and efficient concert ticketing experience. 
-If you have any questions or feedback, feel free to reach out!
 
 Happy Concert Going! 🎶✨
