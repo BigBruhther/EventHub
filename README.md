@@ -50,4 +50,3 @@ ensure a seamless concert experience.
 We aim to provide a user-friendly platform for both concert hosts and customers, 
 ensuring an enjoyable and efficient concert ticketing experience. 
 
-Happy Concert Going! 🎶✨
