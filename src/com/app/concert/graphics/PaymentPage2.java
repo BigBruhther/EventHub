@@ -42,7 +42,6 @@ public class PaymentPage2 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        VenuePicjLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         CardNumjFormattedTextField1 = new javax.swing.JFormattedTextField();
         DatejFormattedTextField3 = new javax.swing.JFormattedTextField();
@@ -117,23 +116,17 @@ public class PaymentPage2 extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
-        VenuePicjLabel4.setText("Upload Venue Here");
+        jPanel3.setBackground(new java.awt.Color(255, 255, 245));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(VenuePicjLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+            .addGap(0, 279, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(VenuePicjLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -274,7 +267,10 @@ public class PaymentPage2 extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -353,7 +349,6 @@ public class PaymentPage2 extends javax.swing.JFrame {
     private javax.swing.JButton PurchasejButton2;
     private javax.swing.JComboBox<String> SeatjComboBox2;
     private javax.swing.JComboBox<String> SectionjComboBox1;
-    private javax.swing.JLabel VenuePicjLabel4;
     private javax.swing.JFormattedTextField ZipjFormattedTextField5;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
