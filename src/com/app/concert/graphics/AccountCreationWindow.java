@@ -1,5 +1,8 @@
 package com.app.concert.graphics;
 
+import utils.GlobalData;
+import dao.UserHandler;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -20,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
@@ -121,6 +125,18 @@ public class AccountCreationWindow extends BaseWindow {
 		btnNewButton.setFocusable(false);
 		btnNewButton.setBounds(548, 80, 94, 21);
 		panel.add(btnNewButton);
+                
+                JButton btnCreateButton = new JButton("Create Account");
+		btnCreateButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+                            btnAddActionPerformed(e);
+			}
+		});
+		btnCreateButton.setBackground(new Color(0, 0, 0));
+		btnCreateButton.setForeground(new Color(255, 222, 89));
+		btnCreateButton.setFocusable(false);
+		btnCreateButton.setBounds(548, 458, 94, 21);
+		panel.add(btnCreateButton);
 		
 		txtEmail = new JTextField();
 		txtEmail.setCaretColor(new Color(255, 222, 89));
@@ -329,4 +345,26 @@ public class AccountCreationWindow extends BaseWindow {
 			}
 		});
 	}
+        
+        private void btnAddActionPerformed(ActionEvent e){
+            String email = txtEmail.getText();
+            String password = passHidden.getText();
+            int ret = new UserHandler().addUser(email, password, GlobalData.usr.getiD());
+            if(ret == -1){
+                JOptionPane.showMessageDialog(this, "Failed to Add User");
+            } else {
+                JOptionPane.showMessageDialog(this, "Succeeded", "Succeeded", JOptionPane.INFORMATION_MESSAGE);
+            }
+            txtEmail.setText(null);
+            passHidden.setText(null);
+        }
+        
+         public static void main(String args[]) {
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AccountCreationWindow().setVisible(true);
+            }
+        });
+    }
 }
