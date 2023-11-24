@@ -3,6 +3,7 @@ package com.app.concert.graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -18,6 +19,8 @@ import javax.swing.border.BevelBorder;
 
 import com.app.concert.user.Account;
 import com.app.concert.user.Password;
+
+import concertdb.HostMainPage;
 
 
 /**
@@ -40,7 +43,7 @@ public class LoginWindow extends BaseWindow
 	private JPasswordField passHidden;
 	private JTextField passShown;
 	private JPanel pnlPassword;
-	
+	private BaseWindow self;
 	
 	public LoginWindow() 
 	{
@@ -53,6 +56,9 @@ public class LoginWindow extends BaseWindow
 		this.setTitle("Log in");
 		//this.setIconImage(new ImageIcon("ENTER IMAGE FILE NAME HERE").getImage());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.lastWindow = null;
+		this.nextWindow = new AccountCreationWindow();
+		self = this;
 		
 		getContentPane().setLayout(null);
 		
@@ -110,7 +116,8 @@ public class LoginWindow extends BaseWindow
 		passShown = new JTextField();
 		passShown.setBounds(passHidden.getBounds());
 		
-		JButton btnHidePass = new JButton("");
+		JButton btnHidePass = new JButton("👁");
+		btnHidePass.setMargin(new Insets(0, 0, 0, 0));
 		btnHidePass.setFocusable(false);
 		btnHidePass.setToolTipText("Hide/unhide password");
 		btnHidePass.addActionListener(new ActionListener() {
@@ -120,7 +127,6 @@ public class LoginWindow extends BaseWindow
 		});
 		
 		btnHidePass.setBounds(330, 24, 21, 21);
-		// ADD EYEBALL IMAGE HERE
 		pnlPassword.add(btnHidePass);
 		
 		JPanel pnlParagraph = new JPanel();
@@ -154,7 +160,7 @@ public class LoginWindow extends BaseWindow
 		pnlParagraph.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Sign Up");
-		AccountCreationWindow ac = new AccountCreationWindow();
+		AccountCreationWindow ac = (AccountCreationWindow) nextWindow;
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -212,6 +218,13 @@ public class LoginWindow extends BaseWindow
 					Account a = new Account(txtEmail.getText(), password);;
 					new MainWindow(a);
 				}
+				
+				// THIS IS FOR DEBUGGING PURPOSES ONLY!!!  EDIT THIS LATER!!!
+				String email = txtEmail.getText().toUpperCase();
+				if (email.contains("user".toUpperCase())) {
+					new UserMainPage(self);
+				}
+				
 			}
 		});
 		btnSubmit.setFocusable(false);
@@ -226,9 +239,6 @@ public class LoginWindow extends BaseWindow
 		lblImage.setForeground(new Color(0, 0, 0));
 		lblImage.setBounds(-885, -187, 1836, 776);
 		getContentPane().add(lblImage);
-		
-		
-		setNext(new BaseWindow());	// Change this later
 		
 		this.setVisible(true);
 		
