@@ -11,9 +11,9 @@ package bo;
 public class User {
     private String email;
     private String password;
-    private String iD;
+    private int iD;
 
-    public User(String email, String password, String iD) {
+    public User(String email, String password, int iD) {
         this.email = email;
         this.password = password;
         this.iD = iD;
@@ -35,11 +35,11 @@ public class User {
         this.password = password;
     }
 
-    public String getiD() {
+    public int getiD() {
         return iD;
     }
 
-    public void setiD(String iD) {
+    public void setiD(int iD) {
         this.iD = iD;
     }
     
