@@ -8,7 +8,7 @@ import utils.SQLUtil;
 
 /**
  *
- * @author ayylmao
+ * @author Joshua Cruz
  */
 public class UserHandler {
     private SQLUtil sqlUtil;
