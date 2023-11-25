@@ -20,7 +20,7 @@ import javax.swing.border.BevelBorder;
 import com.app.concert.user.Account;
 import com.app.concert.user.Password;
 
-import concertdb.HostMainPage;
+import com.app.concert.graphics.HostMainPage;
 
 
 /**
@@ -213,11 +213,6 @@ public class LoginWindow extends BaseWindow
 					password = String.valueOf(passHidden.getPassword());
 				else
 					password = passShown.getText();
-				
-				if (Password.isValid(password)) {
-					Account a = new Account(txtEmail.getText(), password);;
-					new MainWindow(a);
-				}
 				
 				// THIS IS FOR DEBUGGING PURPOSES ONLY!!!  EDIT THIS LATER!!!
 				String email = txtEmail.getText().toUpperCase();
