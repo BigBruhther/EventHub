@@ -8,6 +8,10 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 import javax.swing.SwingConstants;
 
 
@@ -42,18 +46,14 @@ public class BaseWindow extends JFrame
 		
 	}
 	
-	
-	
-	protected void setLast(JFrame lastWindow) {
-		this.lastWindow = lastWindow;
-	}
-	
-	protected void setNext(JFrame nextWindow) {
-		this.nextWindow = nextWindow;
-	}
-	
 	public boolean getCurrentUse() {return isInstantiated;}
 	
 	public void invertUse() { isInstantiated = !isInstantiated;}
+	
+	protected void closePrevious() {
+		
+		lastWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		lastWindow.dispose();
+	}
 		
 }
