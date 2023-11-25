@@ -17,7 +17,10 @@ public class UserMainPage extends BaseWindow {
     /**
      * Creates new form UserMainPage
      */
-    public UserMainPage() {
+    public UserMainPage(BaseWindow lw) {
+    	this.lastWindow = lw;
+    	closePrevious();
+    	
         this.setTitle("Home Page");
         initComponents();
         
