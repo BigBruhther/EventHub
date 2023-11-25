@@ -13,10 +13,12 @@ import java.security.Timestamp;
 public class Concert {
     private String name;
     private Timestamp date;
+    private int price;
 
-    public Concert(String name, Timestamp date) {
+    public Concert(String name, Timestamp date, int price) {
         this.name = name;
         this.date = date;
+        this.price = price;
     }
 
     public String getName() {
@@ -33,6 +35,14 @@ public class Concert {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+    
+    public int getPrice() {
+        return price;
+    }
+    
+    public void setPrice(int price) {
+        this.price = price;
     }
     
     
