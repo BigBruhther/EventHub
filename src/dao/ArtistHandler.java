@@ -15,9 +15,9 @@ public class ArtistHandler {
     public ArtistHandler() {
         sqlUtil = new SQLUtil();
     }
-    public int addVenue(int iD, String genre){
-        String cmdTemplate = "insert into Artist(iD, genre) values('%d', '%s')";
-        String cmd = String.format(cmdTemplate, iD, genre);
+    public int addVenue(int artistID, String name, String genre){
+        String cmdTemplate = "insert into Artist(artistID, name, genre) values('%d', '%s', '%s')";
+        String cmd = String.format(cmdTemplate, artistID, name, genre);
         return sqlUtil.execeuteUpdate(cmd);
     }
     
