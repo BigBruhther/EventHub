@@ -347,16 +347,23 @@ public class AccountCreationWindow extends BaseWindow {
 	}
         
         private void btnAddActionPerformed(ActionEvent e){
+            String name = txtFirst.getText();
             String email = txtEmail.getText();
             String password = passHidden.getText();
-            int ret = new UserHandler().addUser(email, password, GlobalData.usr.getiD());
+            int ret = new UserHandler().addUser(name, email, password);
+            
+            // Checks if field boxes are empty, then checks if passwords match, and then creates account.
+           
             if(ret == -1){
                 JOptionPane.showMessageDialog(this, "Failed to Add User");
             } else {
-                JOptionPane.showMessageDialog(this, "Succeeded", "Succeeded", JOptionPane.INFORMATION_MESSAGE);
-            }
+                JOptionPane.showMessageDialog(this, "Succeeded!", "Succeeded", JOptionPane.INFORMATION_MESSAGE);
+            } 
+            
             txtEmail.setText(null);
+            txtFirst.setText(null);
             passHidden.setText(null);
+            passHidden2.setText(null);
         }
         
          public static void main(String args[]) {
