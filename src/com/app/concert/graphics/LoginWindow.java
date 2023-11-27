@@ -22,6 +22,11 @@ import com.app.concert.user.Password;
 
 import com.app.concert.graphics.HostMainPage;
 
+import dao.UserHandler;
+import bo.User;
+import utils.GlobalData;
+import javax.swing.JOptionPane;
+
 
 /**
  * An object representing a login window to collect a user's
@@ -206,21 +211,9 @@ public class LoginWindow extends BaseWindow
 		
 		JButton btnSubmit = new JButton("SUBMIT");
 		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String password;
-				if (isHidden) 
-					password = String.valueOf(passHidden.getPassword());
-				else
-					password = passShown.getText();
-				
-				// THIS IS FOR DEBUGGING PURPOSES ONLY!!!  EDIT THIS LATER!!!
-				String email = txtEmail.getText().toUpperCase();
-				if (email.contains("user".toUpperCase())) {
-					new UserMainPage(self);
-				}
-				
-			}
+		public void actionPerformed(ActionEvent e) {
+			btnSubmitActionPerformed(e);
+                    }
 		});
 		btnSubmit.setFocusable(false);
 		btnSubmit.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 15));
@@ -266,9 +259,20 @@ public class LoginWindow extends BaseWindow
 		
 	}
 
+        private void btnSubmitActionPerformed(ActionEvent e){
+             String email = txtEmail.getText();
+             String password = new String(passHidden.getPassword());
+             GlobalData.usr = new UserHandler().login(email, password);
+                               
+            if(GlobalData.usr==null){
+                // Failed
+                JOptionPane.showMessageDialog(this, "Incorrect login info!");
+            } else {
+                this.dispose();
+                new UserMainPage(self);
+            }
+        }
 	
-	
-
 	private String[] submit(String email, String password) {
 		
 		
