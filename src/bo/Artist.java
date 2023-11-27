@@ -9,20 +9,30 @@ package bo;
  * @author Kohner Smith
  */
 public class Artist {
-    private int iD;
+    private int artistID;
+    private String name;
     private String genre;
 
-    public Artist(int iD, String genre) {
-        this.iD = iD;
+    public Artist(int artistID, String name, String genre) {
+        this.artistID = artistID;
+        this.name = name;
         this.genre = genre;
     }
 
-    public int getiD() {
-        return iD;
+    public int getArtistID() {
+        return artistID;
     }
 
-    public void setiD(int iD) {
-        this.iD = iD;
+    public void setArtistID(int artistID) {
+        this.artistID = artistID;
+    }
+    
+    public String setArtistName() {
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getGenre() {

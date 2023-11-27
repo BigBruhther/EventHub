@@ -4,44 +4,39 @@
  */
 package bo;
 
+import java.util.Vector;
 /**
  *
  * @author Kohner Smith
  */
 public class User {
-    private String email;
-    private String password;
-    private int iD;
+    private int userID;
+    private String name;
 
-    public User(String email, String password, int iD) {
-        this.email = email;
-        this.password = password;
-        this.iD = iD;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getiD() {
-        return iD;
-    }
-
-    public void setiD(int iD) {
-        this.iD = iD;
+    public User(int userID, String name) {
+        this.userID = userID;
+        this.name = name;
     }
     
-    
+    public Vector<Object> getRow(){
+        Vector<Object> ret = new Vector();
+        ret.add(this.userID);
+        ret.add(this.name);
+        return ret;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }    
 }
