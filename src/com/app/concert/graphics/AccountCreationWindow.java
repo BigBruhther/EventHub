@@ -352,7 +352,8 @@ public class AccountCreationWindow extends BaseWindow {
             String password = passHidden.getText();
             int ret = new UserHandler().addUser(name, email, password);
             
-            // Checks if field boxes are empty, then checks if passwords match, and then creates account.
+            // Account creation if statement.
+            // We can add additional features such as checking if fields are empty and if passwords match later on.
            
             if(ret == -1){
                 JOptionPane.showMessageDialog(this, "Failed to Add User");
