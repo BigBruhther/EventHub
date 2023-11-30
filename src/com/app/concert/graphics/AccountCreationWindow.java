@@ -1,7 +1,8 @@
-package com.app.concert.graphics;
-
-import utils.GlobalData;
-import dao.UserHandler;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package concertdb;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,13 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -32,8 +31,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.text.MaskFormatter;
 
+import dao.CustomerHandler;
+import dao.UserHandler;
+import utils.PasswordEncryptor;
 
 /**
  * Representation for the Account Creation Page
@@ -42,28 +43,29 @@ import javax.swing.text.MaskFormatter;
  * @version 11.20.23
  *
  */
+@SuppressWarnings("serial")
 public class AccountCreationWindow extends BaseWindow {
-	
+
 	private JTextField txtEmail;
-	
+
 	private JPasswordField passHidden;
 	private JPasswordField passHidden2;
 	private JTextField passShown;
 	private JTextField passShown2;
 	private boolean isHidden = true;
-	
-	
+
 	private JPanel panel;
 	private JTextField txtFirst;
 	private JTextField txtLast;
-	private JTextField textField;
+	private JTextField txtZip;
+	private JComboBox<String> cbCountry;
 
 	public AccountCreationWindow() {
 
 		System.out.println("Creating account creation window...");
 
 		this.setTitle("Account creation");
-		this.setBounds(0,0,922, 743);
+		this.setBounds(0, 0, 922, 743);
 		getContentPane().setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -71,53 +73,53 @@ public class AccountCreationWindow extends BaseWindow {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 936, 713);
 		getContentPane().add(scrollPane);
-		
+
 		JPanel pnlScrollablePanel = new JPanel();
 		scrollPane.setViewportView(pnlScrollablePanel);
 		pnlScrollablePanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JLayeredPane layeredPane = new JLayeredPane();
 		pnlScrollablePanel.add(layeredPane);
-		
+
 		JLabel lblNewLabel = new JLabel("");
-		Image image = new ImageIcon(this.getClass().getResource("/com/app/concert/graphics/backstage.jpg")).getImage();
+		Image image = new ImageIcon(this.getClass().getResource("/concertdb/backstage.jpg")).getImage();
 		lblNewLabel.setBounds(0, 0, 907, 711);
 		lblNewLabel.setIcon(new ImageIcon(image));
 		layeredPane.add(lblNewLabel);
-		
+
 		panel = new JPanel();
 		layeredPane.setLayer(panel, 1);
 		panel.setBounds(87, 50, 743, 610);
 		panel.setBackground(new Color(0, 0, 0, 200));
 		layeredPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JPopupMenu popupMenu = new JPopupMenu();
 		addPopup(panel, popupMenu);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Sign Up!");
 		lblNewLabel_1.setFont(new Font("Ink Free", Font.BOLD | Font.ITALIC, 35));
 		lblNewLabel_1.setForeground(new Color(255, 222, 89));
 		lblNewLabel_1.setBounds(104, 52, 166, 65);
 		panel.add(lblNewLabel_1);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(255, 222, 89));
 		separator.setBackground(new Color(255, 222, 89));
 		separator.setBounds(68, 127, 606, 20);
 		panel.add(separator);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Already have an EventHub account?");
 		lblNewLabel_2.setForeground(new Color(255, 222, 89));
 		lblNewLabel_2.setBounds(326, 80, 221, 20);
 		panel.add(lblNewLabel_2);
-		
+
 		JButton btnNewButton = new JButton("Sign In");
 		BaseWindow thisWindow = this;
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				thisWindow.dispatchEvent(new WindowEvent(thisWindow, WindowEvent.WINDOW_CLOSING));	// Closes the window
+
+				thisWindow.dispatchEvent(new WindowEvent(thisWindow, WindowEvent.WINDOW_CLOSING)); // Closes the window
 			}
 		});
 		btnNewButton.setBackground(new Color(0, 0, 0));
@@ -125,19 +127,74 @@ public class AccountCreationWindow extends BaseWindow {
 		btnNewButton.setFocusable(false);
 		btnNewButton.setBounds(548, 80, 94, 21);
 		panel.add(btnNewButton);
-                
-                JButton btnCreateButton = new JButton("Create Account");
+
+		JButton btnCreateButton = new JButton("Create Account");
+		BaseWindow self = this;
 		btnCreateButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-                            btnAddActionPerformed(e);
+			public void actionPerformed(ActionEvent e) {
+				
+				String pass1;
+				String pass2;
+				
+				if (isHidden) {
+				
+					pass1 = String.valueOf(passHidden.getPassword());
+					pass2 = String.valueOf(passHidden2.getPassword());
+					passShown.setText(pass1);
+					passShown2.setText(pass2);
+					
+				}
+				else {
+				
+					pass1 = passShown.getText();
+					pass2 = passShown2.getText();
+					passHidden.setText(pass1);
+					passHidden2.setText(pass2);
+				}
+				
+				Password Password = new Password();
+				if (pass1.equals(pass2)) {
+					
+					if (!Password.isValid(pass1)){
+						JOptionPane.showMessageDialog(self, "Password is invalid");
+					}
+					else if (!Email.isValid(txtEmail.getText())) {
+						JOptionPane.showMessageDialog(self, "Email is invalid");
+					}
+					else if(txtFirst.getText().isBlank() || txtLast.getText().isBlank()) {
+						JOptionPane.showMessageDialog(self, "Name fields cannot be empty");
+					}
+					else {
+						
+						try {
+						
+							boolean exists = new UserHandler().searchForUser(txtEmail.getText());
+						
+							if (exists) {
+								JOptionPane.showMessageDialog(self, "Email already exists");
+							}
+							else {
+								btnAddActionPerformed(e);
+							}
+						}
+						catch(NumberFormatException ex) {
+							JOptionPane.showMessageDialog(self, "Invalid zip code");
+						}
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(self, "Passwords do not match");
+				}
+				
+
 			}
 		});
 		btnCreateButton.setBackground(new Color(0, 0, 0));
 		btnCreateButton.setForeground(new Color(255, 222, 89));
 		btnCreateButton.setFocusable(false);
-		btnCreateButton.setBounds(548, 458, 94, 21);
+		btnCreateButton.setBounds(499, 458, 143, 21);
 		panel.add(btnCreateButton);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setCaretColor(new Color(255, 222, 89));
 		txtEmail.setMargin(new Insets(2, 5, 2, 2));
@@ -148,13 +205,13 @@ public class AccountCreationWindow extends BaseWindow {
 		txtEmail.setBounds(68, 178, 345, 32);
 		panel.add(txtEmail);
 		txtEmail.setColumns(25);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("Email");
 		lblNewLabel_3.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblNewLabel_3.setForeground(new Color(255, 222, 89));
 		lblNewLabel_3.setBounds(68, 157, 87, 20);
 		panel.add(lblNewLabel_3);
-		
+
 		passHidden = new JPasswordField();
 		passHidden.setCaretColor(new Color(255, 222, 89));
 		passHidden.setMargin(new Insets(2, 5, 2, 2));
@@ -165,7 +222,7 @@ public class AccountCreationWindow extends BaseWindow {
 		passHidden.setBackground(new Color(0, 0, 0));
 		passHidden.setBounds(68, 257, 345, 32);
 		panel.add(passHidden);
-		
+
 		passShown = new JTextField();
 		passShown.setForeground(passHidden.getForeground());
 		passShown.setFont(passShown.getFont());
@@ -173,13 +230,13 @@ public class AccountCreationWindow extends BaseWindow {
 		passShown.setBorder(passHidden.getBorder());
 		passShown.setBackground(passHidden.getBackground());
 		passShown.setBounds(passHidden.getBounds());
-		
+
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setForeground(new Color(255, 222, 89));
 		lblPassword.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblPassword.setBounds(68, 236, 87, 20);
 		panel.add(lblPassword);
-		
+
 		passHidden2 = new JPasswordField();
 		passHidden2.setCaretColor(new Color(255, 222, 89));
 		passHidden2.setMargin(new Insets(2, 5, 2, 2));
@@ -190,7 +247,7 @@ public class AccountCreationWindow extends BaseWindow {
 		passHidden2.setBackground(new Color(0, 0, 0));
 		passHidden2.setBounds(68, 331, 345, 32);
 		panel.add(passHidden2);
-		
+
 		passShown2 = new JTextField();
 		passShown2.setForeground(passHidden2.getForeground());
 		passShown2.setFont(passShown2.getFont());
@@ -198,15 +255,13 @@ public class AccountCreationWindow extends BaseWindow {
 		passShown2.setBorder(passHidden2.getBorder());
 		passShown2.setBackground(passHidden2.getBackground());
 		passShown2.setBounds(passHidden2.getBounds());
-		
-		
-		
+
 		JLabel lblReEnterPassword = new JLabel("Re-Enter Password");
 		lblReEnterPassword.setForeground(new Color(255, 222, 89));
 		lblReEnterPassword.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblReEnterPassword.setBounds(68, 310, 140, 20);
 		panel.add(lblReEnterPassword);
-		
+
 		JButton btnNewButton_1 = new JButton("👁");
 		btnNewButton_1.setToolTipText("Hide/Show password");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -221,7 +276,7 @@ public class AccountCreationWindow extends BaseWindow {
 		btnNewButton_1.setBounds(419, 293, 36, 34);
 		btnNewButton_1.setBackground(panel.getBackground());
 		panel.add(btnNewButton_1);
-		
+
 		txtFirst = new JTextField();
 		txtFirst.setCaretColor(new Color(255, 222, 89));
 		txtFirst.setMargin(new Insets(2, 5, 2, 2));
@@ -232,13 +287,13 @@ public class AccountCreationWindow extends BaseWindow {
 		txtFirst.setBackground(new Color(0, 0, 0, 200));
 		txtFirst.setBounds(470, 178, 204, 32);
 		panel.add(txtFirst);
-		
+
 		JLabel lblFirstName = new JLabel("First Name");
 		lblFirstName.setForeground(new Color(255, 222, 89));
 		lblFirstName.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblFirstName.setBounds(470, 157, 204, 20);
 		panel.add(lblFirstName);
-		
+
 		txtLast = new JTextField();
 		txtLast.setCaretColor(new Color(255, 222, 89));
 		txtLast.setMargin(new Insets(2, 5, 2, 2));
@@ -249,63 +304,61 @@ public class AccountCreationWindow extends BaseWindow {
 		txtLast.setBackground(new Color(0, 0, 0, 200));
 		txtLast.setBounds(470, 257, 204, 32);
 		panel.add(txtLast);
-		
+
 		JLabel lblLastName = new JLabel("Last Name");
 		lblLastName.setForeground(new Color(255, 222, 89));
 		lblLastName.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblLastName.setBounds(470, 236, 204, 20);
 		panel.add(lblLastName);
-		
-		JComboBox cbCountry = new JComboBox();
+
+		cbCountry = new JComboBox<String>();
 		cbCountry.setBorder(new LineBorder(new Color(255, 222, 89), 3));
 		cbCountry.setLightWeightPopupEnabled(false);
 		cbCountry.setFocusable(false);
 		cbCountry.setForeground(new Color(255, 222, 89));
 		cbCountry.setBackground(new Color(0, 0, 0));
-		cbCountry.setModel(new DefaultComboBoxModel(new String[] {"Australia", "Brazil", "Canada", "China", "Denmark", "France", "Germany", "India", "Ireland", "Italy", "Japan", "Mexico", "Netherlands", "Russia", "Scotland", "Spain", "Turkey", "Ukraine", "United Kingdom", "United States"}));
+		cbCountry.setModel(new DefaultComboBoxModel<String>(new String[] { "Australia", "Brazil", "Canada", "China",
+				"Denmark", "France", "Germany", "India", "Ireland", "Italy", "Japan", "Mexico", "Netherlands", "Russia",
+				"Scotland", "Spain", "Turkey", "Ukraine", "United Kingdom", "United States" }));
 		cbCountry.setSelectedIndex(19);
 		cbCountry.setBounds(244, 393, 153, 28);
 		panel.add(cbCountry);
-		
+
 		JLabel lblCountryOfOrigin = new JLabel("Country of Residence");
 		lblCountryOfOrigin.setForeground(new Color(255, 222, 89));
 		lblCountryOfOrigin.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblCountryOfOrigin.setBounds(68, 399, 175, 20);
 		panel.add(lblCountryOfOrigin);
-		
+
 		JLabel lblZip = new JLabel("Zip Code");
 		lblZip.setForeground(new Color(255, 222, 89));
 		lblZip.setFont(new Font("Constantia", Font.PLAIN, 16));
 		lblZip.setBounds(68, 461, 94, 20);
 		panel.add(lblZip);
 
-		textField = new JTextField();
-		textField.setCaretColor(new Color(255, 222, 89));
-		textField.setMargin(new Insets(2, 5, 2, 2));
-		textField.setForeground(new Color(255, 222, 89));
-		textField.setFont(new Font("Constantia", Font.PLAIN, 14));
-		textField.setColumns(15);
-		textField.setBorder(new LineBorder(new Color(255, 222, 89), 2));
-		textField.setBackground(new Color(0, 0, 0));
-		textField.setBounds(172, 449, 241, 32);
-		panel.add(textField);
-		
-		
+		txtZip = new JTextField();
+		txtZip.setCaretColor(new Color(255, 222, 89));
+		txtZip.setMargin(new Insets(2, 5, 2, 2));
+		txtZip.setForeground(new Color(255, 222, 89));
+		txtZip.setFont(new Font("Constantia", Font.PLAIN, 14));
+		txtZip.setColumns(15);
+		txtZip.setBorder(new LineBorder(new Color(255, 222, 89), 2));
+		txtZip.setBackground(new Color(0, 0, 0));
+		txtZip.setBounds(172, 449, 241, 32);
+		panel.add(txtZip);
 
 		System.out.println("Created: Account creation window");
 
 	}
-	
-	
+
 	/**
-	 * Sets the field concerning the password to whatever is opposite
-	 * of the current field type (i.e. password field converts to text field and vice versa)
+	 * Sets the field concerning the password to whatever is opposite of the current
+	 * field type (i.e. password field converts to text field and vice versa)
 	 */
 	private void setFieldType() {
-		
-		
-		if(isHidden == true) {
-			// Replaces the password field with a standard text field by 
+
+		if (isHidden == true) {
+			// Replaces the password field with a standard text field by
 			// copying the value over and removing the password field
 			passShown.setText(String.valueOf(passHidden.getPassword()));
 			passShown2.setText(String.valueOf(passHidden2.getPassword()));
@@ -314,8 +367,7 @@ public class AccountCreationWindow extends BaseWindow {
 			panel.add(passShown);
 			panel.add(passShown2);
 			isHidden = false;
-		}
-		else {
+		} else {
 			// Replaces the standard text field with a password field by
 			// copying the text over and removing it with a text field
 			passHidden.setText(passShown.getText());
@@ -326,8 +378,9 @@ public class AccountCreationWindow extends BaseWindow {
 			panel.add(passHidden2);
 			isHidden = true;
 		}
-		
+
 	}
+
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -335,44 +388,44 @@ public class AccountCreationWindow extends BaseWindow {
 					showMenu(e);
 				}
 			}
+
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
+
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
 	}
-        
-        private void btnAddActionPerformed(ActionEvent e){
-            String name = txtFirst.getText();
-            String email = txtEmail.getText();
-            String password = passHidden.getText();
-            int ret = new UserHandler().addUser(name, email, password);
-            
-            // Account creation if statement.
-            // We can add additional features such as checking if fields are empty and if passwords match later on.
-           
-            if(ret == -1){
-                JOptionPane.showMessageDialog(this, "Failed to Add User");
-            } else {
-                JOptionPane.showMessageDialog(this, "Succeeded!", "Succeeded", JOptionPane.INFORMATION_MESSAGE);
-            } 
-            
-            txtEmail.setText(null);
-            txtFirst.setText(null);
-            passHidden.setText(null);
-            passHidden2.setText(null);
-        }
-        
-         public static void main(String args[]) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AccountCreationWindow().setVisible(true);
-            }
-        });
-    }
+
+	private void btnAddActionPerformed(ActionEvent e) {
+		
+		int emailType = Email.getEmailType(txtEmail.getText());
+		
+		if (emailType == Email.ARTIST || emailType == Email.HOST) {
+			JOptionPane.showMessageDialog(this, "Email is invalid");
+		}
+		else {
+			String email = txtEmail.getText();
+			@SuppressWarnings("deprecation")
+			String password = PasswordEncryptor.encrypt(passHidden.getText());
+			String name = txtFirst.getText() + " " + txtLast.getText();
+			String country = (String) cbCountry.getSelectedItem();
+			int zip = Integer.parseInt(txtZip.getText());
+			int ret = -1;
+			ret = new CustomerHandler().addUser(name, email, password, country, zip);
+			if (ret == -1) {
+				JOptionPane.showMessageDialog(this, "Failed to Add User");
+			} else {
+				JOptionPane.showMessageDialog(this, "Succeeded", "Succeeded", JOptionPane.INFORMATION_MESSAGE);
+			}
+			txtEmail.setText(null);
+			passHidden.setText(null);
+			this.dispose();
+		}
+	}
+
 }
