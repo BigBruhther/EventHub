@@ -9,22 +9,22 @@ package bo;
  * @author Kohner Smith
  */
 public class Venue {
-    private String vId;
+    private int vId;
     private String address;
     private String vName;
 
-    public Venue(String vId, String address, String vName) {
+    public Venue(int vId, String address, String vName) {
         this.vId = vId;
         this.address = address;
         this.vName = vName;
     }
 
-    public String getvId() {
-        return vId;
+    public void setvId(int vId) {
+        this.vId = vId;
     }
 
-    public void setvId(String vId) {
-        this.vId = vId;
+    public int getvId() {
+        return vId;
     }
 
     public String getAddress() {
@@ -41,6 +41,11 @@ public class Venue {
 
     public void setvName(String vName) {
         this.vName = vName;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(getvId()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
     

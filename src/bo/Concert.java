@@ -5,6 +5,7 @@
 package bo;
 
 import java.security.Timestamp;
+import java.util.Vector;
 
 /**
  *
@@ -12,13 +13,43 @@ import java.security.Timestamp;
  */
 public class Concert {
     private String name;
-    private Timestamp date;
-    private int price;
+    private String date;
+    private Float price;
+    private int vId;
+    private int artistId;
 
-    public Concert(String name, Timestamp date, int price) {
+    public Concert(String name, String date, Float price, int vId, int artistId) {
         this.name = name;
         this.date = date;
         this.price = price;
+        this.vId = vId;
+        this.artistId = artistId;
+    }
+    
+    public Vector getRow(){
+        Vector vec = new Vector();
+        vec.add(this.name);
+        vec.add(this.date);
+        vec.add(this.price);
+        vec.add(this.vId);
+        vec.add(this.artistId);
+        return vec;
+    }
+    
+    public int getvId() {
+        return vId;
+    }
+
+    public void setvId(int vId) {
+        this.vId = vId;
+    }
+
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) {
+        this.artistId = artistId;
     }
 
     public String getName() {
@@ -29,19 +60,19 @@ public class Concert {
         this.name = name;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
-    
-    public int getPrice() {
+
+    public Float getPrice() {
         return price;
     }
-    
-    public void setPrice(int price) {
+
+    public void setPrice(Float price) {
         this.price = price;
     }
     

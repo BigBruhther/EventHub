@@ -8,31 +8,24 @@ package bo;
  *
  * @author Kohner Smith
  */
-public class Section {
+public class Section2 {
     private int sectionNo;
-    private int vId;
-
-    public Section(int sectionNo, int vId) {
+    
+    public Section2(int sectionNo){
         this.sectionNo = sectionNo;
-
-        this.vId = vId;
     }
 
-    public int getSectionNo() {
+    public int getSectionNo2() {
         return sectionNo;
     }
 
-    public void setSectionNo(int sectionNo) {
+    public void setSectionNo2(int sectionNo) {
         this.sectionNo = sectionNo;
     }
 
-    public int getvId() {
-        return vId;
+    @Override
+    public String toString() {
+        return Integer.toString(getSectionNo2());
     }
-
-    public void setvId(int vId) {
-        this.vId = vId;
-    }
-    
     
 }

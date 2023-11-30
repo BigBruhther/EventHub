@@ -8,15 +8,11 @@ package bo;
  *
  * @author Kohner Smith
  */
-public class Seat {
+public class Seat2 {
     private int seatNo;
-    private int sectionNo;
-    private int vId;
-
-    public Seat(int seatNo, int sectionNo, int vId) {
+    
+    public Seat2(int seatNo){
         this.seatNo = seatNo;
-        this.sectionNo = sectionNo;
-        this.vId = vId;
     }
 
     public int getSeatNo() {
@@ -27,21 +23,9 @@ public class Seat {
         this.seatNo = seatNo;
     }
 
-    public int getSectionNo() {
-        return sectionNo;
+    @Override
+    public String toString() {
+        return Integer.toString(getSeatNo()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-
-    public void setSectionNo(int sectionNo) {
-        this.sectionNo = sectionNo;
-    }
-
-    public int getvId() {
-        return vId;
-    }
-
-    public void setvId(int vId) {
-        this.vId = vId;
-    }
-    
     
 }

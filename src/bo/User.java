@@ -4,39 +4,61 @@
  */
 package bo;
 
-import java.util.Vector;
 /**
  *
  * @author Kohner Smith
  */
 public class User {
-    private int userID;
-    private String name;
+    private int userId;
+    private String userName;
+    private String userEmail;
+    private String userPassword;
 
-    public User(int userID, String name) {
-        this.userID = userID;
-        this.name = name;
-    }
     
-    public Vector<Object> getRow(){
-        Vector<Object> ret = new Vector();
-        ret.add(this.userID);
-        ret.add(this.name);
-        return ret;
+    /**
+     * 
+     * @param userId
+     * @param userName
+     * @param userEmail
+     * @param userPassword
+     */
+    public User(int userId, String userName, String userEmail, String userPassword) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-    public String getName() {
-        return name;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }    
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
 }

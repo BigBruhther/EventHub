@@ -9,30 +9,22 @@ package bo;
  * @author Kohner Smith
  */
 public class Artist {
-    private int artistID;
-    private String name;
+    private int artistId;
     private String genre;
+    private String description;
 
-    public Artist(int artistID, String name, String genre) {
-        this.artistID = artistID;
-        this.name = name;
+    public Artist(int artistId, String genre, String description) {
+        this.artistId = artistId;
         this.genre = genre;
+        this.description = description;
     }
 
-    public int getArtistID() {
-        return artistID;
+    public int getartistId() {
+        return artistId;
     }
 
-    public void setArtistID(int artistID) {
-        this.artistID = artistID;
-    }
-    
-    public String setArtistName() {
-        return name;
-    }
-    
-    public void setName(String name){
-        this.name = name;
+    public void setartistId(int artistId) {
+        this.artistId = artistId;
     }
 
     public String getGenre() {
@@ -41,6 +33,19 @@ public class Artist {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(getartistId()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
     

@@ -9,17 +9,15 @@ package bo;
  * @author Kohner Smith
  */
 public class Ticket {
-    private int ticketNo;
-    private int iD;
+    private int userId;
     private String name;
-    private String seatNo;
-    private String sectionNo;
-    private String vId;
-    private String tPrice;
+    private int seatNo;
+    private int sectionNo;
+    private int vId;
+    private float tPrice;
 
-    public Ticket(int ticketNo, int iD, String name, String seatNo, String sectionNo, String vId, String tPrice) {
-        this.ticketNo = ticketNo;
-        this.iD = iD;
+    public Ticket(int userId, String name, int seatNo, int sectionNo, int vId, float tPrice) {
+        this.userId = userId;
         this.name = name;
         this.seatNo = seatNo;
         this.sectionNo = sectionNo;
@@ -27,20 +25,12 @@ public class Ticket {
         this.tPrice = tPrice;
     }
 
-    public int getTicketNo() {
-        return ticketNo;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setTicketNo(int ticketNo) {
-        this.ticketNo = ticketNo;
-    }
-
-    public int getiD() {
-        return iD;
-    }
-
-    public void setiD(int iD) {
-        this.iD = iD;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -51,37 +41,37 @@ public class Ticket {
         this.name = name;
     }
 
-    public String getSeatNo() {
+    public int getSeatNo() {
         return seatNo;
     }
 
-    public void setSeatNo(String seatNo) {
+    public void setSeatNo(int seatNo) {
         this.seatNo = seatNo;
     }
 
-    public String getSectionNo() {
+    public int getSectionNo() {
         return sectionNo;
     }
 
-    public void setSectionNo(String sectionNo) {
+    public void setSectionNo(int sectionNo) {
         this.sectionNo = sectionNo;
     }
 
-    public String getvId() {
+    public int getvId() {
         return vId;
     }
 
-    public void setvId(String vId) {
+    public void setvId(int vId) {
         this.vId = vId;
     }
 
-    public String gettPrice() {
+    public float gettPrice() {
         return tPrice;
     }
 
-    public void settPrice(String tPrice) {
+    public void settPrice(float tPrice) {
         this.tPrice = tPrice;
     }
-    
+
     
 }
