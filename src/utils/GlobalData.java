@@ -6,11 +6,10 @@ package utils;
 
 import bo.User;
 import javax.swing.JDesktopPane;
-
 /**
  *
- * @author Joshua Cruz
+ * @author Kohner Smith
  */
 public class GlobalData {
-     public static User usr = null;
+    public static User usr = null;
 }
